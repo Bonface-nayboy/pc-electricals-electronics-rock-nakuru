@@ -1,6 +1,15 @@
 import { NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
 
+interface Product {
+    id: string;
+    name: string;
+    image: string;
+    amount: string;
+    buyPrice: string;
+}
+
+
 export async function GET(req: Request) {
     try {
         const client = await clientPromise;
@@ -16,8 +25,8 @@ export async function GET(req: Request) {
 
 
 export async function POST(req: Request) {
-    const { id, name, image, amount,buyPrice}: Product = await req.json();
-    console.log("Received product data:", { id, name, image, amount,buyPrice });
+    const { id, name, image, amount, buyPrice }: Product = await req.json();
+    console.log("Received product data:", { id, name, image, amount, buyPrice });
 
     try {
         const client = await clientPromise;
@@ -27,7 +36,7 @@ export async function POST(req: Request) {
             // Update an existing product
             const result = await db.collection('products').updateOne(
                 { id },
-                { $set: { name, image, amount,buyPrice } },
+                { $set: { name, image, amount, buyPrice } },
                 { upsert: true } // Create a new document if no match is found
             );
 
@@ -38,7 +47,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ success: true, message: 'Product updated' });
         } else {
             // Add a new product
-            const newProduct: Product = { id: Date.now().toString(), name, image, amount,buyPrice };  // Include amount
+            const newProduct: Product = { id: Date.now().toString(), name, image, amount, buyPrice };  // Include amount
             await db.collection('products').insertOne(newProduct);
             return NextResponse.json({ success: true, message: 'Product added', data: newProduct });
         }
