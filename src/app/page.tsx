@@ -27,7 +27,7 @@ const HomePage = () => {
         <Box
           sx={{
             position: 'absolute',
-            backgroundColor: 'black',
+            // backgroundColor: 'black',
             top: '10.5%',
             left: '50%',
             transform: 'translate(-50%, -50%)',

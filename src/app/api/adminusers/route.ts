@@ -71,13 +71,15 @@ export async function PUT(req: NextRequest) {
     }
 }
 
-
-
-
 export async function DELETE(req: NextRequest) {
     try {
         const { searchParams } = new URL(req.url);
         const id = searchParams.get('id');
+
+        // Handle null id
+        if (id === null) {
+            return NextResponse.json({ success: false, message: 'Missing ObjectId' }, { status: 400 });
+        }
 
         // Validate ObjectId
         if (!ObjectId.isValid(id)) {
@@ -100,3 +102,32 @@ export async function DELETE(req: NextRequest) {
         return NextResponse.json({ success: false, message: 'Internal Server Error' }, { status: 500 });
     }
 }
+
+
+
+// export async function DELETE(req: NextRequest) {
+//     try {
+//         const { searchParams } = new URL(req.url);
+//         const id = searchParams.get('id');
+
+//         // Validate ObjectId
+//         if (!ObjectId.isValid(id)) {
+//             return NextResponse.json({ success: false, message: 'Invalid ObjectId' }, { status: 400 });
+//         }
+
+//         const client = await clientPromise;
+//         const db = client.db('pcelectricals');
+
+//         // Delete user from the database
+//         const result = await db.collection('users').deleteOne({ _id: new ObjectId(id) });
+
+//         if (result.deletedCount === 0) {
+//             return NextResponse.json({ success: false, message: 'User not found' }, { status: 404 });
+//         }
+
+//         return NextResponse.json({ success: true, message: 'User deleted successfully' });
+//     } catch (error) {
+//         console.error('Error deleting the user:', error);
+//         return NextResponse.json({ success: false, message: 'Internal Server Error' }, { status: 500 });
+//     }
+// }
