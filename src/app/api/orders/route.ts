@@ -1,24 +1,92 @@
-// backend/order.ts
+// // backend/order.ts
+
+// import { NextResponse } from 'next/server';
+// import clientPromise from '@/lib/mongodb';
+// import { ObjectId } from 'mongodb';
+
+// interface Order {
+//     productId: string;
+//     quantity: string;
+//     amount: string;
+//     buyPrice:string;
+//     name: string;
+//     prod_name: string;
+//     more: string;
+//     location: string;
+//     contact: string;
+//     postedVia: 'direct' | 'whatsapp'; // Include postedVia field
+//     status?: 'pending' | 'completed' | 'cancelled'; // Status is optional for creation
+// }
+
+// async function updateNotificationCount(client, increment: number) {
+//     const db = client.db('register');
+//     const notificationCollection = db.collection('notificationCount');
+
+//     const result = await notificationCollection.findOneAndUpdate(
+//         { type: 'orderCount' },
+//         { $inc: { count: increment } },
+//         { upsert: true, returnDocument: 'after' }
+//     );
+
+//     if (!result.value) {
+//         const newDoc = await notificationCollection.findOne({ type: 'orderCount' });
+//         return newDoc ? newDoc.count : 0;
+//     }
+
+//     return result.value.count;
+// }
+
+// export async function POST(req: Request) {
+//     try {
+//         const { productId, name, prod_name, quantity, amount,buyPrice, more, location, contact, postedVia }: Order = await req.json();
+
+//         const client = await clientPromise;
+//         const db = client.db('register');
+
+//         await db.collection('orders').insertOne({
+//             productId,
+//             name,
+//             prod_name,
+//             quantity,
+//             amount,
+//             buyPrice,
+//             more,
+//             location,
+//             contact,
+//             postedVia,  // Save the postedVia field
+//             status: 'pending',
+//             createdAt: new Date(),
+//         });
+
+//         const count = await updateNotificationCount(client, 1);
+
+//         return NextResponse.json({ success: true, message: 'Order placed successfully', count });
+//     } catch (error) {
+//         console.error('Error placing order:', error);
+//         return NextResponse.json({ success: false, message: 'Internal server error' }, { status: 500 });
+//     }
+// }
+
 
 import { NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 
 interface Order {
     productId: string;
     quantity: string;
     amount: string;
-    buyPrice:string;
+    buyPrice: string;
     name: string;
     prod_name: string;
     more: string;
     location: string;
     contact: string;
-    postedVia: 'direct' | 'whatsapp'; // Include postedVia field
-    status?: 'pending' | 'completed' | 'cancelled'; // Status is optional for creation
+    postedVia: 'direct' | 'whatsapp';
+    status?: 'pending' | 'completed' | 'cancelled';
 }
 
-async function updateNotificationCount(client, increment: number) {
+async function updateNotificationCount(client: MongoClient, increment: number) {
     const db = client.db('register');
     const notificationCollection = db.collection('notificationCount');
 
@@ -28,7 +96,7 @@ async function updateNotificationCount(client, increment: number) {
         { upsert: true, returnDocument: 'after' }
     );
 
-    if (!result.value) {
+    if (!result || !result.value) {
         const newDoc = await notificationCollection.findOne({ type: 'orderCount' });
         return newDoc ? newDoc.count : 0;
     }
@@ -38,7 +106,7 @@ async function updateNotificationCount(client, increment: number) {
 
 export async function POST(req: Request) {
     try {
-        const { productId, name, prod_name, quantity, amount,buyPrice, more, location, contact, postedVia }: Order = await req.json();
+        const { productId, name, prod_name, quantity, amount, buyPrice, more, location, contact, postedVia }: Order = await req.json();
 
         const client = await clientPromise;
         const db = client.db('register');
@@ -53,7 +121,7 @@ export async function POST(req: Request) {
             more,
             location,
             contact,
-            postedVia,  // Save the postedVia field
+            postedVia,
             status: 'pending',
             createdAt: new Date(),
         });
@@ -66,6 +134,9 @@ export async function POST(req: Request) {
         return NextResponse.json({ success: false, message: 'Internal server error' }, { status: 500 });
     }
 }
+
+
+
 
 export async function GET() {
     try {
@@ -84,7 +155,7 @@ export async function GET() {
 
 export async function PUT(req: Request) {
     try {
-        const { id, status, productId, name, prod_name, quantity, amount,more, location, contact, postedVia }: Order & { id: string } = await req.json();
+        const { id, status, productId, name, prod_name, quantity, amount, more, location, contact, postedVia }: Order & { id: string } = await req.json();
 
         const client = await clientPromise;
         const db = client.db('register');
