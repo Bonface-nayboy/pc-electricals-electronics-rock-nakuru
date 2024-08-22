@@ -6,10 +6,11 @@ import {
     Dialog, DialogActions, DialogContent, DialogTitle, TextField, useMediaQuery, useTheme, Badge, IconButton,
     Table, TableBody, TableCell, TableHead, TableRow
 } from '@mui/material';
-import { WhatsApp, ShoppingCart, Close } from '@mui/icons-material';
+import { WhatsApp, ShoppingCart } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import VideosPage from '@/app/testpost001/page';
+import Image from 'next/image'; // Import Image from next/image
 
 const ProductsCard: React.FC<{ searchTerm: string, userId: string }> = ({ searchTerm, userId }) => {
     const [products, setProducts] = useState<any[]>([]);
@@ -216,11 +217,12 @@ const ProductsCard: React.FC<{ searchTerm: string, userId: string }> = ({ search
                     filteredProducts.map(prod => (
                         <Grid item xs={12} sm={6} md={3} key={prod.id}>
                             <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                            <CardMedia
-    sx={{ height: 260, padding: '2px' }}
-    image={prod.image || '/default-image.jpg'}
-    title={prod.name}
-/>
+                                <CardMedia
+                                    sx={{ height: 260, padding: '2px' }}
+                                    component="img" // Specify that it's an img element
+                                    image={prod.image || '/default-image.jpg'}
+                                    title={prod.name}
+                                />
 
                                 <CardContent sx={{ flex: '1 0 auto' }}>
                                     <Typography gutterBottom variant="h5" component="div">
@@ -260,86 +262,99 @@ const ProductsCard: React.FC<{ searchTerm: string, userId: string }> = ({ search
             >
                 <DialogTitle>Place Your Order</DialogTitle>
                 <DialogContent>
-                    <Typography variant="h6" sx={{ marginBottom: '10px', textAlign: 'center' }}>
-                        <img
-                            src={selectedProduct?.image}
-                            alt={selectedProduct?.name}
-                            style={{ width: isMobile ? '80%' : '30%', height: isMobile ? 'auto' : '120px', margin: '0 auto' }}
-                        />
+                    <Typography variant="h6" sx={{ marginBottom: 2 }}>
+                        {selectedProduct?.name}
                     </Typography>
                     <TextField
-                        label="Name"
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Your Name"
+                        type="text"
                         fullWidth
+                        variant="standard"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        sx={{ marginBottom: '16px' }}
+                        onChange={e => setName(e.target.value)}
                     />
                     <TextField
+                        margin="dense"
+                        id="quantity"
                         label="Quantity"
                         type="number"
                         fullWidth
+                        variant="standard"
                         value={quantity}
                         onChange={handleQuantityChange}
-                        sx={{ marginBottom: '16px' }}
                     />
                     <TextField
-                        label="Amount"
+                        margin="dense"
+                        id="amount"
+                        label="Total Amount"
+                        type="text"
                         fullWidth
+                        variant="standard"
                         value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                        sx={{ marginBottom: '16px' }}
+                        disabled
                     />
-                    {/* <TextField
+                    <TextField
+                        margin="dense"
+                        id="buyPrice"
                         label="Buy Price"
+                        type="text"
                         fullWidth
-                        value={buyPrice} // Display buyPrice
-                        onChange={(e) => setBuyPrice(e.target.value)}
-                        sx={{ marginBottom: '16px' }}
-                        disabled // Disable editing of buyPrice
-                    /> */}
+                        variant="standard"
+                        value={buyPrice}
+                        disabled
+                    />
                     <TextField
+                        margin="dense"
+                        id="more"
                         label="More Details"
+                        type="text"
                         fullWidth
+                        variant="standard"
                         value={more}
-                        onChange={(e) => setMore(e.target.value)}
-                        sx={{ marginBottom: '16px' }}
+                        onChange={e => setMore(e.target.value)}
                     />
                     <TextField
+                        margin="dense"
+                        id="location"
                         label="Location"
+                        type="text"
                         fullWidth
+                        variant="standard"
                         value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                        sx={{ marginBottom: '16px' }}
+                        onChange={e => setLocation(e.target.value)}
                     />
                     <TextField
+                        margin="dense"
+                        id="contact"
                         label="Contact"
+                        type="text"
                         fullWidth
+                        variant="standard"
                         value={contact}
-                        onChange={(e) => setContact(e.target.value)}
-                        sx={{ marginBottom: '16px' }}
+                        onChange={e => setContact(e.target.value)}
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
                     <Button
-                        onClick={() => handleOrder(false)}
-                        variant='contained'
+                        variant="contained"
                         color="primary"
                         disabled={!areOrderButtonsVisible}
+                        onClick={() => handleOrder(false)}
                     >
-                        Order Directly
+                        Place Order Directly
                     </Button>
                     <Button
-                        onClick={() => handleOrder(true)}
-                        variant='contained'
-                        color="success"
-                        startIcon={<WhatsApp/>}
+                        variant="contained"
+                        color="secondary"
                         disabled={!areOrderButtonsVisible}
+                        onClick={() => handleOrder(true)}
                     >
                         Order via WhatsApp
                     </Button>
+                    <Button onClick={handleClose}>Cancel</Button>
                 </DialogActions>
             </Dialog>
 
@@ -347,32 +362,18 @@ const ProductsCard: React.FC<{ searchTerm: string, userId: string }> = ({ search
             <Dialog
                 open={learnMoreDialogOpen}
                 onClose={handleClose}
-                fullWidth
-                maxWidth="sm"
+                fullWidth={isMobile}
+                maxWidth={isMobile ? 'xs' : 'md'}
             >
-                <DialogTitle>Product Details</DialogTitle>
+                <DialogTitle>Learn More About {selectedProduct?.name}</DialogTitle>
                 <DialogContent>
-                    <Typography variant="h6" sx={{ marginBottom: '10px', textAlign: 'center' }}>
-                        <img
-                            src={selectedProduct?.image}
-                            alt={selectedProduct?.name}
-                            style={{ width: '100%', height: 'auto' }}
-                        />
-                    </Typography>
-                    <Typography variant="body1" paragraph>
-                        <strong>Name:</strong> {selectedProduct?.name}
-                    </Typography>
-                    <Typography variant="body1" paragraph>
-                        <strong>Amount:</strong> Ksh {selectedProduct?.amount}
-                    </Typography>
-                    <Typography variant="body1" paragraph>
-                        <strong>Description:</strong> {selectedProduct?.description || 'No description available'}
+                    <Typography variant="h6">Price: Ksh: {selectedProduct?.amount}</Typography>
+                    <Typography variant="body1" sx={{ marginTop: 2 }}>
+                        {selectedProduct?.more}
                     </Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Close
-                    </Button>
+                    <Button onClick={handleClose}>Close</Button>
                 </DialogActions>
             </Dialog>
 
@@ -380,22 +381,20 @@ const ProductsCard: React.FC<{ searchTerm: string, userId: string }> = ({ search
             <Dialog
                 open={cartDialogOpen}
                 onClose={handleClose}
-                fullWidth
-                maxWidth="md"
+                fullWidth={isMobile}
+                maxWidth={isMobile ? 'xs' : 'md'}
             >
                 <DialogTitle>Your Cart</DialogTitle>
                 <DialogContent>
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Name</TableCell>
+                                <TableCell>Product Name</TableCell>
                                 <TableCell>Quantity</TableCell>
                                 <TableCell>Amount</TableCell>
-                                {/* <TableCell>Buy Price</TableCell>
-                                <TableCell>More Details</TableCell>
+                                {/* <TableCell>More</TableCell>
                                 <TableCell>Location</TableCell>
-                                <TableCell>Contact</TableCell>
-                                <TableCell>Posted Via</TableCell> */}
+                                <TableCell>Contact</TableCell> */}
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -404,20 +403,16 @@ const ProductsCard: React.FC<{ searchTerm: string, userId: string }> = ({ search
                                     <TableCell>{order.prod_name}</TableCell>
                                     <TableCell>{order.quantity}</TableCell>
                                     <TableCell>{order.amount}</TableCell>
-                                    {/* <TableCell>{order.buyPrice}</TableCell> */}
                                     {/* <TableCell>{order.more}</TableCell>
-                                    <TableCell>{order.location}</TableCell>
+                                    <TableCell>{order.location}</TableCell> */}
                                     <TableCell>{order.contact}</TableCell>
-                                    <TableCell>{order.postedVia}</TableCell> */}
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Close
-                    </Button>
+                    <Button onClick={handleClose}>Close</Button>
                 </DialogActions>
             </Dialog>
             <VideosPage/>
