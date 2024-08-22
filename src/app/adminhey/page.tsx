@@ -29,7 +29,7 @@ const AdminPage: React.FC = () => {
         <Box>
             <SearchAppBar/>
          
-            <ProductForm productId={editingProductId} onCancel={handleCancelEdit} onProductAdded={() => {}} />
+            <ProductForm productId={editingProductId ?? undefined} onCancel={handleCancelEdit} onProductAdded={() => {}} />
             <ProductList onEditProduct={handleEditProduct} />
         </Box>
     );
