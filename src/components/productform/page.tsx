@@ -173,11 +173,17 @@ interface Product {
     buyPrice: number;
 }
 
+// interface ProductFormProps {
+//     productId?: string; // Make productId optional
+//     onCancel: () => void;
+//     onProductAdded?: (product: Product) => void; // Make onProductAdded optional
+// }
 interface ProductFormProps {
-    productId?: string; // Make productId optional
+    productId?: string; // Optional, not nullable
     onCancel: () => void;
-    onProductAdded?: (product: Product) => void; // Make onProductAdded optional
+    onProductAdded?: (product: Product) => void; // Optional callback
 }
+
 
 const ProductForm: React.FC<ProductFormProps> = ({ productId, onCancel, onProductAdded }) => {
     const [name, setName] = useState<string>('');
