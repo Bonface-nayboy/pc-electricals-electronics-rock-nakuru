@@ -102,7 +102,7 @@
 //     };
 
 //     return (
-                
+
 //         <Box sx={{ padding: '0px' }}>
 //             <Typography variant="h4" sx={{ marginBottom: '20px' }}>Product List</Typography>
 //             <Grid container spacing={4}>
@@ -138,7 +138,7 @@
 //                     </Grid>
 //                 ))}
 //             </Grid>
-           
+
 //             <Dialog open={open} onClose={handleClose}>
 //                 <DialogTitle>{currentProductId ? 'Edit Product' : 'Add Product'}</DialogTitle>
 //                 <DialogContent>
@@ -167,7 +167,7 @@
 
 //             {loading && <LoadingSpinner />}
 //         </Box>
-        
+
 //     );
 // };
 
@@ -175,14 +175,10 @@
 
 
 
-
-
 import React, { useState, useEffect } from 'react';
-import { Box, Card, CardMedia, CardContent, Typography, IconButton, Grid, Button, Dialog, DialogActions, DialogContent, DialogTitle, Tooltip } from '@mui/material';
+import { Box, Card, CardMedia, CardContent, Typography, IconButton, Grid, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useRouter } from 'next/navigation';
-import { Home, Restore } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingSpinner from '../loadingspiner/page';
@@ -195,18 +191,13 @@ interface Product {
     amount: number;
 }
 
-interface ProductListProps {
-    onEditProduct: (productId: string) => void;
-}
-
-const ProductList: React.FC<ProductListProps> = ({ onEditProduct }) => {
+const ProductList: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [open, setOpen] = useState(false);
     const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
     const [currentProductId, setCurrentProductId] = useState<string | null>(null);
     const [deleteProductId, setDeleteProductId] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
-    const router = useRouter();
 
     const fetchProducts = async () => {
         setLoading(true);
@@ -218,7 +209,6 @@ const ProductList: React.FC<ProductListProps> = ({ onEditProduct }) => {
                 setProducts(data.data);
             } else {
                 toast.error(`Error: ${data.message}`);
-                console.log('message', data);
             }
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -267,19 +257,6 @@ const ProductList: React.FC<ProductListProps> = ({ onEditProduct }) => {
         setCurrentProductId(null);
     };
 
-    const handleProductAdded = (product: Product) => {
-        // Update existing product or add a new product
-        setProducts(prevProducts => {
-            const isEditing = currentProductId !== null;
-            if (isEditing) {
-                return prevProducts.map(p => (p.id === product?.id ? product : p));
-            } else {
-                return [...prevProducts, product];
-            }
-        });
-        handleClose();
-    };
-
     return (
         <Box sx={{ padding: '0px' }}>
             <Typography variant="h4" sx={{ marginBottom: '20px' }}>Product List</Typography>
@@ -316,16 +293,14 @@ const ProductList: React.FC<ProductListProps> = ({ onEditProduct }) => {
                     </Grid>
                 ))}
             </Grid>
-           
+
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>{currentProductId ? 'Edit Product' : 'Add Product'}</DialogTitle>
                 <DialogContent>
-                    {/* Conditionally render ProductForm based on currentProductId */}
                     {currentProductId && (
                         <ProductForm
                             productId={currentProductId}
                             onCancel={handleClose}
-                            onProductAdded={handleProductAdded}
                         />
                     )}
                 </DialogContent>
