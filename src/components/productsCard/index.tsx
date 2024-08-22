@@ -20,7 +20,7 @@ const ProductsCard: React.FC<{ searchTerm: string, userId: string }> = ({ search
     const [cartDialogOpen, setCartDialogOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<any>(null);
     const [quantity, setQuantity] = useState('1');
-    const [amount, setAmount] = useState(''); 
+    const [amount, setAmount] = useState('');
     const [buyPrice, setBuyPrice] = useState(''); // Initialize buyPrice state
     const [more, setMore] = useState('');
     const [location, setLocation] = useState('');
@@ -415,7 +415,7 @@ const ProductsCard: React.FC<{ searchTerm: string, userId: string }> = ({ search
                     <Button onClick={handleClose}>Close</Button>
                 </DialogActions>
             </Dialog>
-            <VideosPage/>
+            <VideosPage />
         </>
     );
 };

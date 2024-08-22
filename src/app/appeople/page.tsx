@@ -250,7 +250,7 @@ export default function People() {
         <DialogTitle>Confirm Password</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please enter the admin password to view the user's password.
+            Please enter the admin password to view the user password.
           </DialogContentText>
           <TextField
             type="password"
