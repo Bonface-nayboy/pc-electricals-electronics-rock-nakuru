@@ -182,6 +182,7 @@
 //         </Paper>
 //     );
 // }
+
 "use client";
 import React, { useEffect, useState } from 'react';
 import {
@@ -195,12 +196,7 @@ import {
 } from '@mui/material';
 import { styled, keyframes } from '@mui/system';
 
-// Define the type for the RoseBloom props
-interface RoseBloomProps {
-    type: 'deep' | 'shallow' | 'open';
-}
-
-// Twinkling animation for stars and flowers
+// Define twinkling animation for stars and flowers
 const twinkle = keyframes`
   0%, 100% { opacity: 0.5; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.2); }
@@ -218,39 +214,33 @@ const PolygonStar = styled('div')({
     animation: `${twinkle} 2s infinite ease-in-out`,
 });
 
-// Rose bloom shapes with proper typing and function signature
-const RoseBloom = styled('div', {
-    shouldForwardProp: (prop) => prop !== 'type',
-})<RoseBloomProps>(({ type }) => {
-    const commonStyles = {
-        width: '20px',
-        height: '20px',
-        position: 'absolute',
-        borderRadius: '50%',
-        backgroundColor: type === 'deep' ? 'red' : type === 'shallow' ? 'orange' : 'pink',
-        transform: 'rotate(45deg)',
-        animation: `${twinkle} 2s infinite ease-in-out`,
-    };
+// Base RoseBloom component with dynamic styling
+const RoseBloomBase = styled('div')({
+    width: '20px',
+    height: '20px',
+    position: 'absolute',
+    borderRadius: '50%',
+    transform: 'rotate(45deg)',
+    animation: `${twinkle} 2s infinite ease-in-out`,
+});
 
-    const flowerStyle = {
-        deep: {
-            boxShadow: '0 0 0 10px rgba(255, 0, 0, 0.5)',
-            clipPath: 'polygon(50% 20%, 80% 50%, 50% 80%, 20% 50%)',
-        },
-        shallow: {
-            boxShadow: '0 0 0 8px rgba(255, 140, 0, 0.5)',
-            clipPath: 'polygon(50% 25%, 75% 50%, 50% 75%, 25% 50%)',
-        },
-        open: {
-            boxShadow: '0 0 0 6px rgba(255, 165, 0, 0.5)',
-            clipPath: 'polygon(50% 30%, 70% 50%, 50% 70%, 30% 50%)',
-        },
-    };
+// Style variants for RoseBloom
+const RoseBloomDeep = styled(RoseBloomBase)({
+    backgroundColor: 'red',
+    boxShadow: '0 0 0 10px rgba(255, 0, 0, 0.5)',
+    clipPath: 'polygon(50% 20%, 80% 50%, 50% 80%, 20% 50%)',
+});
 
-    return {
-        ...commonStyles,
-        ...flowerStyle[type],
-    };
+const RoseBloomShallow = styled(RoseBloomBase)({
+    backgroundColor: 'orange',
+    boxShadow: '0 0 0 8px rgba(255, 140, 0, 0.5)',
+    clipPath: 'polygon(50% 25%, 75% 50%, 50% 75%, 25% 50%)',
+});
+
+const RoseBloomOpen = styled(RoseBloomBase)({
+    backgroundColor: 'pink',
+    boxShadow: '0 0 0 6px rgba(255, 165, 0, 0.5)',
+    clipPath: 'polygon(50% 30%, 70% 50%, 50% 70%, 30% 50%)',
 });
 
 // Container for stars and flowers
@@ -272,15 +262,16 @@ const generateStarsAndFlowers = (count: number) => {
         const isStar = Math.random() > 0.5;
         const top = `${Math.random() * 100}%`;
         const left = `${Math.random() * 100}%`;
-        const flowerType: 'deep' | 'shallow' | 'open' = ['deep', 'shallow', 'open'][Math.floor(Math.random() * 3)]; // Random flower type
+        const flowerType = ['deep', 'shallow', 'open'][Math.floor(Math.random() * 3)]; // Random flower type
 
         if (isStar) {
             elements.push(
                 <PolygonStar key={i} style={{ top, left }} />
             );
         } else {
+            const FlowerComponent = flowerType === 'deep' ? RoseBloomDeep : flowerType === 'shallow' ? RoseBloomShallow : RoseBloomOpen;
             elements.push(
-                <RoseBloom key={i} type={flowerType} style={{ top, left }} />
+                <FlowerComponent key={i} style={{ top, left }} />
             );
         }
     }
