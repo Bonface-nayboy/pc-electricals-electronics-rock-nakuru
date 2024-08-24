@@ -65,7 +65,6 @@
 // export default HomePage;
 
 
-
 "use client"; // This enables client-side rendering
 
 import React from 'react';
@@ -86,12 +85,33 @@ const HomePage = () => {
   return (
     <>
       <Head>
+        <title>PC Electricals and Electronics - Your One-Stop Shop in Nakuru</title>
+        <meta name="description" content="PC Electricals and Electronics offers a wide range of high-quality electricals and electronics. Shop now to find the best deals and products in Nakuru." />
         <meta property="og:title" content="PC Electricals and Electronics" />
         <meta property="og:description" content="Your one-stop shop for electricals and electronics in Nakuru." />
-        <meta property="og:image" content="https://images.pexels.com/photos/301792/pexels-photo-301792.jpeg?auto=compress&cs=tinysrgb&w=600" />
-        <meta property="og:url" content="https://yourdomain.com" />
+        <meta property="og:image" content="https://th.bing.com/th/id/OIP.TDa1Z27ZLtQZ9hKnLzbadgHaIb?w=167&h=190&c=7&r=0&o=5&pid=1.7" />
+        <meta property="og:url" content="https://rockpcelectricals-g3da.vercel.app/" />
         <meta property="og:site_name" content="PC Electricals and Electronics" />
-        <meta property="og:locale" content="en_US" />
+        <meta property="og:locale" content="en_KE" />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "PC Electricals and Electronics",
+              "url": "https://rockpcelectricals-g3da.vercel.app/",
+              "logo": "https://th.bing.com/th/id/OIP.TDa1Z27ZLtQZ9hKnLzbadgHaIb?w=167&h=190&c=7&r=0&o=5&pid=1.7",
+              "description": "PC Electricals and Electronics offers a wide range of high-quality electricals and electronics in Nakuru.",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+254-700000000",
+                "contactType": "Customer Service"
+              }
+            })
+          }}
+        />
       </Head>
 
       <Box>
@@ -101,6 +121,7 @@ const HomePage = () => {
             sx={{ height: { xs: 95, sm: 150 } }}
             image="https://images.pexels.com/photos/301792/pexels-photo-301792.jpeg?auto=compress&cs=tinysrgb&w=600"
             title="Electronic Products"
+            alt="Electronic Products Display"
           />
           <Box
             sx={{
