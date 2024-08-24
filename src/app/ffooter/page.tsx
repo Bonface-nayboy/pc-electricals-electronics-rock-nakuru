@@ -16,6 +16,7 @@ export default function Footer() {
                     flexDirection: { xs: 'column', sm: 'row' },
                     justifyContent: 'space-between',
                     alignItems: { xs: 'center', sm: 'flex-start' }
+
                 }}
             >
                 <Box sx={{ mb: { xs: 2, sm: 0 } }}>

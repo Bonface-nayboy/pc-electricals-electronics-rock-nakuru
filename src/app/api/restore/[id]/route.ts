@@ -6,7 +6,9 @@ export async function POST(req: Request, { params }: { params: { id: string } })
 
     try {
         const client = await clientPromise;
-        const db = client.db('register'); // Replace with your database name
+        const db = client.db('register'); 
+        // const db = client.db('pcelectricals');
+
 
         // Fetch the deleted item
         const deletedItem = await db.collection('deleted_products').findOne({ id });

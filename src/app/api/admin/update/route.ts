@@ -17,7 +17,8 @@ export async function PUT(req: Request, { params }: { params: { productId: strin
         }
 
         const client = await clientPromise;
-        const db = client.db('register'); // Replace with your database name
+        // const db = client.db('register'); 
+        const db = client.db('pcelectricals');
 
         // Update the product in the database
         const result = await db.collection('products').updateOne(

@@ -13,7 +13,9 @@ interface Product {
 export async function GET(req: Request) {
     try {
         const client = await clientPromise;
-        const db = client.db('register'); // Replace with your database name
+        //  const db = client.db('register');
+         const db = client.db('pcelectricals');
+
         const products = await db.collection('products').find().toArray();
         console.log('Fetched products:', products); // Log the products
         return NextResponse.json({ success: true, data: products });
@@ -30,7 +32,8 @@ export async function POST(req: Request) {
 
     try {
         const client = await clientPromise;
-        const db = client.db('register'); // Ensure 'register' is your database name
+        // const db = client.db('register');
+         const db = client.db('pcelectricals');
 
         if (id) {
             // Update an existing product

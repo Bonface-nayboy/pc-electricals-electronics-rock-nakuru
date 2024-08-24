@@ -5,6 +5,8 @@ export async function POST() {
     try {
         const client = await clientPromise;
         const db = client.db('register');
+        // const db = client.db('pcelectricals');
+
         const notificationCollection = db.collection('notificationCount');
         
         await notificationCollection.updateOne(

@@ -11,6 +11,9 @@ export async function GET() {
     try {
         const client = await clientPromise;
         const db = client.db('register');
+        // const db = client.db('pcelectricals');
+
+
         const ordersCollection = db.collection<Order>('orders');
 
         const mostOrderedProducts = await ordersCollection.aggregate([

@@ -20,7 +20,8 @@ export async function GET(req: Request) {
 
         // Connect to the MongoDB client
         const client = await clientPromise;
-        const db = client.db('register'); // Replace with your database name
+         const db = client.db('register'); 
+        // const db = client.db('pcelectricals');
         
         // Fetch the product from the database
         const product = await db.collection('products').findOne({ id: productId });

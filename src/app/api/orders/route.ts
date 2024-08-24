@@ -88,6 +88,8 @@ interface Order {
 
 async function updateNotificationCount(client: MongoClient, increment: number) {
     const db = client.db('register');
+    // const db = client.db('pcelectricals');
+
     const notificationCollection = db.collection('notificationCount');
 
     const result = await notificationCollection.findOneAndUpdate(
@@ -110,6 +112,7 @@ export async function POST(req: Request) {
 
         const client = await clientPromise;
         const db = client.db('register');
+        // const db = client.db('pcelectricals');
 
         await db.collection('orders').insertOne({
             productId,
@@ -142,6 +145,8 @@ export async function GET() {
     try {
         const client = await clientPromise;
         const db = client.db('register');
+        // const db = client.db('pcelectricals');
+
         const ordersCollection = db.collection<Order>('orders');
 
         const orders = await ordersCollection.find({}).sort({ createdAt: -1 }).toArray();
@@ -159,6 +164,8 @@ export async function PUT(req: Request) {
 
         const client = await clientPromise;
         const db = client.db('register');
+        // const db = client.db('pcelectricals');
+
 
         const updateData: Partial<Order> = {};
         if (status !== undefined) updateData.status = status;
@@ -199,6 +206,8 @@ export async function DELETE(req: Request) {
 
         const client = await clientPromise;
         const db = client.db('register');
+        // const db = client.db('pcelectricals');
+
 
         const result = await db.collection('orders').deleteOne({ _id: new ObjectId(id) });
 

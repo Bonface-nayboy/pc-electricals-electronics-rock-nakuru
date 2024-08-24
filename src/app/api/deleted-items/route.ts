@@ -10,7 +10,9 @@ interface Product {
 export async function GET(req: Request) {
     try {
         const client = await clientPromise;
-        const db = client.db('register'); // Replace with your database name
+         const db = client.db('register');
+        // const db = client.db('pcelectricals');
+
         const deletedProducts = await db.collection('deleted_products').find().toArray();
         return NextResponse.json({ success: true, data: deletedProducts });
     } catch (error) {

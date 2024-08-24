@@ -7,7 +7,8 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
 
     try {
         const client = await clientPromise;
-        const db = client.db('register');
+        //  const db = client.db('register');
+         const db = client.db('pcelectricals');
 
 
         const isValidObjectId = ObjectId.isValid(id) && new ObjectId(id).toString() === id;
@@ -47,7 +48,8 @@ export async function GET(req: Request) {
 
 
         const client = await clientPromise;
-        const db = client.db('register');
+        //  const db = client.db('register');
+         const db = client.db('pcelectricals');
 
 
         const product = await db.collection('products').findOne({ id: productId });
@@ -77,7 +79,8 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 
     try {
         const client = await clientPromise;
-        const db = client.db('register');
+        // const db = client.db('register');
+        const db = client.db('pcelectricals');
         const body = await req.json();
 
 
