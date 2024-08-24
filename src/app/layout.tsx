@@ -1,6 +1,7 @@
 import { AuthProvider } from "@/context/AuthContext/page";
 import type { Metadata } from "next";
 import { ToastContainer } from "react-toastify";
+import 'leaflet/dist/leaflet.css';
 
 
 export const metadata: Metadata = {

@@ -630,11 +630,11 @@ const ProductsCard: React.FC<{ searchTerm: string, userId: string }> = ({ search
         <>
             <Grid container spacing={2}>
                 <Grid item xs={12} sx={{ textAlign: 'right', marginBottom: '16px' }}>
-                    <IconButton aria-label="cart" onClick={handleOpenCartDialog}>
+                    {/* <IconButton aria-label="cart" onClick={handleOpenCartDialog}>
                         <Badge badgeContent={orderCount} color="primary">
                             <ShoppingCart />
                         </Badge>
-                    </IconButton>
+                    </IconButton> */}
                 </Grid>
                 {filteredProducts.length === 0 ? (
                     <Typography variant="h6" sx={{ width: '100%', textAlign: 'center' }}>

@@ -125,9 +125,9 @@ const HomePage = () => {
               PC Electricals And Electronics
             </Typography>
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', padding: '0 10px' }}>
-              <Button onClick={handleMapClick} color="primary" startIcon={<AddLocation sx={{ color: 'red' }} />}>
+              {/* <Button onClick={handleMapClick} color="primary" startIcon={<AddLocation sx={{ color: 'red' }} />}>
                 Maps
-              </Button>
+              </Button> */}
             </Box>
           </Box>
 

@@ -34,9 +34,8 @@ const HomePage = () => {
                         textAlign: 'center',
                         fontWeight: 'bold',
                         fontSize: { xs: '1.2rem', sm: '1.5rem' },
-                        // backgroundColor: 'rgba(0, 0, 0, 0.3)',
                         padding: '2px',
-                        borderRadius: '9px',
+                        borderRadius: '8px',
                         width: { xs: '95%', sm: '95%', md: '98.2%' }, // Responsive width
                         display: 'flex',
                         flexDirection: 'column', // Stack items vertically
@@ -47,9 +46,9 @@ const HomePage = () => {
                         PC Electricals And  Electronics
                     </Typography>
                     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', padding: '0 10px' }}>
-                        <Button onClick={handleMapClick} color="primary" startIcon={<AddLocation sx={{ color: 'red' }} />}>
+                        {/* <Button onClick={handleMapClick} color="primary" startIcon={<AddLocation sx={{ color: 'red' }} />}>
                             Maps
-                        </Button>
+                        </Button> */}
                     </Box>
                 </Box>
                
@@ -62,3 +61,19 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+
+
+
+
+
+// const handleMapClick = () => {
+//     router.push({
+//         pathname: '/googlemap',
+//         query: {
+//             name: 'Manis Cosmetics',
+//             latitude: '-0.2844782883680483',  // Replace with actual latitude
+//             longitude: '36.07408352058952'  // Replace with actual longitude
+//         }
+//     });
+// };
