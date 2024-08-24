@@ -36,7 +36,7 @@ const HomePage = () => {
                         fontSize: { xs: '1.2rem', sm: '1.5rem' },
                         // backgroundColor: 'rgba(0, 0, 0, 0.3)',
                         padding: '2px',
-                        borderRadius: '8px',
+                        borderRadius: '9px',
                         width: { xs: '95%', sm: '95%', md: '98.2%' }, // Responsive width
                         display: 'flex',
                         flexDirection: 'column', // Stack items vertically
