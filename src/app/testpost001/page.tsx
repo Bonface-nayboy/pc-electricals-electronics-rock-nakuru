@@ -537,7 +537,7 @@ export default function VideosPage() {
                                     component="iframe"
                                     src={getEmbedUrl(video.link)}
                                     title={video.title}
-                                    sx={{ width: '100%', height: { xs: '300px', md: '350px' } }} // Responsive height
+                                    sx={{ width: '100%', height: { xs: '300px', md: '351px' } }} // Responsive height
                                     allowFullScreen
                                 />
                             ) : (
