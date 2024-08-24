@@ -552,6 +552,7 @@ const ProductsCard: React.FC<{ searchTerm: string, userId: string }> = ({ search
                     cartItems: newOrders,
                 }),
             });
+          
         } catch (error) {
             console.error('Error saving cart to backend:', error);
         }
@@ -631,7 +632,7 @@ const ProductsCard: React.FC<{ searchTerm: string, userId: string }> = ({ search
                 <Grid item xs={12} sx={{ textAlign: 'right', marginBottom: '16px' }}>
                     <IconButton aria-label="cart" onClick={handleOpenCartDialog}>
                         <Badge badgeContent={orderCount} color="primary">
-                            {/* <ShoppingCart /> */}
+                            <ShoppingCart />
                         </Badge>
                     </IconButton>
                 </Grid>
@@ -722,16 +723,7 @@ const ProductsCard: React.FC<{ searchTerm: string, userId: string }> = ({ search
                         value={amount}
                         disabled
                     />
-                    {/* <TextField
-                        margin="dense"
-                        id="buyPrice"
-                        label="Buy Price"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        value={buyPrice}
-                        disabled
-                    /> */}
+                  
                     <TextField
                         margin="dense"
                         id="more"
@@ -818,9 +810,7 @@ const ProductsCard: React.FC<{ searchTerm: string, userId: string }> = ({ search
                                 <TableCell>Product Name</TableCell>
                                 <TableCell>Quantity</TableCell>
                                 <TableCell>Amount</TableCell>
-                                {/* <TableCell>More</TableCell>
-                                <TableCell>Location</TableCell>
-                                <TableCell>Contact</TableCell> */}
+                              
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -829,9 +819,7 @@ const ProductsCard: React.FC<{ searchTerm: string, userId: string }> = ({ search
                                     <TableCell>{order.prod_name}</TableCell>
                                     <TableCell>{order.quantity}</TableCell>
                                     <TableCell>{order.amount}</TableCell>
-                                    {/* <TableCell>{order.more}</TableCell>
-                                    <TableCell>{order.location}</TableCell> */}
-                                    <TableCell>{order.contact}</TableCell>
+                                   
                                 </TableRow>
                             ))}
                         </TableBody>
